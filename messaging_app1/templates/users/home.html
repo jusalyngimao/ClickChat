@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickChat - Messaging App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General body styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #F9FAFB; /* Soft off-white background */
+            color: #2E3A59; /* Elegant dark gray text */
+        }
+
+        /* Box container around buttons */
+        .box-container {
+            background-color: #ffffff; /* White for clean and elegant look */
+            padding: 50px 60px;
+            border-radius: 15px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 380px;
+            transition: all 0.3s ease;
+        }
+
+        .box-container:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Title style */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #3E5B77; /* Elegant bluish-gray for the title */
+            letter-spacing: 1.2px;
+            line-height: 1.4;
+        }
+
+        /* Quote style */
+        .quote {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #6C7C9A;
+            margin-bottom: 30px;
+        }
+
+        /* Links container with vertical buttons */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Space between buttons */
+        }
+
+        /* Styling for each link/button */
+        a {
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 12px 30px;
+            background-color: #5F6CAF; /* Soft muted blue */
+            color: #ffffff; /* White text for contrast */
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+        }
+
+        /* Hover effect for links/buttons */
+        a:hover {
+            background-color: #475B8B; /* Darker blue for hover effect */
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive design for small screens */
+        @media (max-width: 480px) {
+            .box-container {
+                width: 90%; /* Make the box smaller on small screens */
+            }
+
+            h1 {
+                font-size: 2rem; /* Adjust title size */
+            }
+
+            a {
+                font-size: 1rem; /* Adjust button size */
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box-container">
+        <h1>ClickChat</h1>
+        <p class="quote">"Stay connected, anytime, anywhere."</p>
+        <div class="links-container">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Create Account</a>
+        </div>
+    </div>
+</body>
+</html>

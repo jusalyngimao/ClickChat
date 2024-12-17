@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Welcome, {{ request.user.username }}</h1>
+
+        <h2>Sent Messages</h2>
+        <ul class="list-group">
+            {% for message in sent_messages %}
+                <li class="list-group-item">
+                    To: {{ message.receiver.username }} <br>
+                    Content: {{ message.encrypted_content }} <br>
+                    Sent: {{ message.timestamp }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Received Messages</h2>
+        <ul class="list-group">
+            {% for message in received_messages %}
+                <li class="list-group-item">
+                    From: {{ message.sender.username }} <br>
+                    Content: {{ message.encrypted_content }} <br>
+                    Received: {{ message.timestamp }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

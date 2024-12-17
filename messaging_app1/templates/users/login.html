@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ClickChat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F9FAFB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            position: relative; /* To position the back button inside */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #3E5B77;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            text-align: left;
+            display: block;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input {
+            font-size: 1rem;
+            padding: 12px 30px;
+            padding-left: 40px; /* Space for icon */
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #F0F4F8;
+            box-sizing: border-box;
+            display: inline-block;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: 12px;
+            top: 70%;
+            transform: translateY(-50%); /* Center icon vertically */
+            font-size: 1.2rem;
+            color: #5F6CAF;
+            pointer-events: none; /* Ensure icon is not interactive */
+        }
+
+        input:focus {
+            border-color: #5F6CAF;
+            outline: none;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        button {
+            font-size: 1.1rem;
+            padding: 12px 30px;
+            width: 100%;
+            background-color: #5F6CAF;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        button i {
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #475B8B;
+        }
+
+        /* Back Button inside the box */
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            color: #5F6CAF;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: #475B8B;
+        }
+
+        @media (max-width: 400px) {
+            .login-container {
+                width: 90%;
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <!-- Back icon inside the box -->
+        <a href="/" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+
+        <h1>Login</h1>
+
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <!-- Username Input with Icon -->
+            <div class="input-container">
+                <label for="username">Username:</label>
+                <input type="text" name="username" placeholder=" " required><br>
+                <i class="fas fa-user"></i>
+            </div>
+
+            <!-- Password Input with Icon -->
+            <div class="input-container">
+                <label for="password">Password:</label>
+                <input type="password" name="password" placeholder=" " required><br>
+                <i class="fas fa-lock"></i>
+            </div>
+
+            <!-- Submit Button with Icon -->
+            <button type="submit"><i class="fas fa-sign-in-alt"></i>Login</button>
+        </form>
+    </div>
+
+</body>
+</html>
