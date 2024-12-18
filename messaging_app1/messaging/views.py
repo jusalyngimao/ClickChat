@@ -4,9 +4,27 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Message
 from .serializers import MessageSerializer
-from .utils import encrypt_message
+from .utils import encrypt_message, decrypt_message  # Import decrypt function
 from django.http import HttpResponse
 from django.shortcuts import render
+from .utils import decrypt_message
+
+def dashboard(request):
+    sent_messages = Message.objects.filter(sender=request.user)
+    received_messages = Message.objects.filter(receiver=request.user)
+
+    # Decrypt the content before passing it to the template
+    for message in sent_messages:
+        message.decrypted_content = decrypt_message(message.encrypted_content)
+
+    for message in received_messages:
+        message.decrypted_content = decrypt_message(message.encrypted_content)
+
+    return render(request, 'users/dashboard.html', {
+        'user': request.user,
+        'sent_messages': sent_messages,
+        'received_messages': received_messages,
+    })
 
 # Create a simple home view
 def home(request):
@@ -56,7 +74,11 @@ class ReceiveMessagesView(APIView):
         if not sender or not content:
             return Response({"error": "Sender and content are required."}, status=400)
 
-        # Save the received message
-        Message.objects.create(sender=sender, receiver=request.user, encrypted_content=content)
+        # Decrypt the content before saving
+        decrypted_content = decrypt_message(content)
+
+        # Save the received message (store decrypted content if needed)
+        Message.objects.create(sender=sender, receiver=request.user, encrypted_content=decrypted_content)
 
         return Response({"message": "Message received successfully."})
+

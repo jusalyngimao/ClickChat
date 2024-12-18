@@ -2,167 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - ClickChat</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background-color: #F4F7FA;
-            color: #333;
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background-color: #3E5B77;
-            color: #fff;
-            width: 250px;
-            padding: 20px;
-            position: fixed;
-            height: 100%;
-        }
-
-        .sidebar h2 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: #fff;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin-bottom: 20px;
-        }
-
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #E1E8F0;
-            font-size: 1.1rem;
-            display: block;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .sidebar ul li a:hover {
-            background-color: #5F6CAF;
-        }
-
-        .content {
-            margin-left: 250px;
-            padding: 40px;
-            flex: 1;
-        }
-
-        .content h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: #3E5B77;
-            margin-bottom: 20px;
-        }
-
-        .content h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #5F6CAF;
-            margin-bottom: 15px;
-        }
-
-        .message-list {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
-        }
-
-        .message-item {
-            background-color: #f1f5f8;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            transition: background-color 0.3s ease;
-        }
-
-        .message-item:hover {
-            background-color: #e1e8f0;
-        }
-
-        .message-info {
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        .message-content {
-            font-size: 1.2rem;
-            color: #333;
-            margin-top: 8px;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 1.1rem;
-            color: #5F6CAF;
-            text-decoration: none;
-            border: 1px solid #5F6CAF;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-link:hover {
-            background-color: #5F6CAF;
-            color: white;
-        }
-    </style>
+    <title>Dashboard</title>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <h2>ClickChat</h2>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/messages">Messages</a></li>
-            <li><a href="/logout">Logout</a></li>
-        </ul>
-    </div>
+    <h1>Welcome, {{ user.username }}!</h1>
+    
+    <h2>Sent Messages</h2>
+    {% for message in sent_messages %}
+        <p>To {{ message.receiver.username }}: {{ message.decrypted_content }} ({{ message.timestamp }})</p>
+    {% empty %}
+        <p>No sent messages.</p>
+    {% endfor %}
 
-    <!-- Main content -->
-    <div class="content">
-        <h1>Welcome, {{ user.username }}!</h1>
-        
-        <h2>Sent Messages</h2>
-        <div class="message-list">
-            {% for message in sent_messages %}
-                <div class="message-item">
-                    <div class="message-info">Sent to: {{ message.receiver.username }}</div>
-                    <div class="message-content">{{ message.content }}</div>
-                </div>
-            {% empty %}
-                <p>No sent messages.</p>
-            {% endfor %}
-        </div>
+    <h2>Received Messages</h2>
+    {% for message in received_messages %}
+        <p>From {{ message.sender.username }}: {{ message.decrypted_content }} ({{ message.timestamp }})</p>
+    {% empty %}
+        <p>No received messages.</p>
+    {% endfor %}
 
-        <h2>Received Messages</h2>
-        <div class="message-list">
-            {% for message in received_messages %}
-                <div class="message-item">
-                    <div class="message-info">From: {{ message.sender.username }}</div>
-                    <div class="message-content">{{ message.content }}</div>
-                </div>
-            {% empty %}
-                <p>No received messages.</p>
-            {% endfor %}
-        </div>
-
-        <a href="/" class="back-link">Back to Home</a>
-    </div>
+    <a href="{% url 'logout' %}">Logout</a>
 </body>
 </html>
